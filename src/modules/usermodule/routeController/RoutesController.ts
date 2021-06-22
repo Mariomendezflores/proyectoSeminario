@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import BusinessUser from "../businessController/BusinessUser";
+import BussinessRoles from "../businessController/BusinnessRoles";
 import sha1 from "sha1";
 import { IUser } from "../models/Users";
 
@@ -33,17 +34,60 @@ class RoutesController {
         let result = await user.deleteUsers(id);
         response.status(200).json({ serverResponse: result });
     }
-    //ejemplo
-    public async isPrime(request: Request, response: Response) {
-        const data = request.body;
-        var number = Number(data.number);
-        for (var i = 2; i < number / 2; i++) {
-            if (number % i == 0) {
 
-                return response.status(200).json({ number, msn: "No es primo" });
-            }
+
+    //funciones para gestionar el rol a los usuarios
+    public async addRol(request: Request, response: Response) {
+        let idUs: string = request.params.id;
+        let idRol = request.body.idRol;
+        if (idUs == null && idRol == null) {
+          response.status(300).json({
+            serverResponse: "No se definio id de usuario ni el id del rol",
+          });
+          return;
         }
-        return response.status(200).json({ number, msn: "Es primo" })
-    }
+        var user: BusinessUser = new BusinessUser();
+        var result = await user.addRol(idUs, idRol);
+        if (result == null) {
+          response
+            .status(300)
+            .json({ serverResponse: "El rol o usuario no existen" });
+          return;
+        }
+        response.status(200).json({ serverResponse: result });
+      }
+      public async createRol(request: Request, response: Response) {
+        let roles: BussinessRoles = new BussinessRoles();
+        var rolesData: any = request.body;
+        let result = await roles.createRol(rolesData);
+        if (result == null) {
+          response
+            .status(300)
+            .json({ serverResponse: "El rol tiene parametros no validos" });
+          return;
+        }
+        response.status(201).json({ serverResponse: result });
+      }
+      public async removeRol(request: Request, response: Response) {
+        let roles: BussinessRoles = new BussinessRoles();
+        let idRol: string = request.params.id;
+        let result = await roles.deleteRol(idRol);
+        response.status(201).json({ serverResponse: result });
+      }
+      public async getRoles(request: Request, response: Response) {
+        let roles: BussinessRoles = new BussinessRoles();
+        let result = await roles.getListRol();
+        response.status(200).json({ serverResponse: result });
+      }
+      public async removeUserRol(request: Request, response: Response) {
+        let roles: BusinessUser = new BusinessUser();
+        let idUs: string = request.params.id;
+        let idRol: string = request.body.idRol;
+        let result = await roles.removeRol(idUs, idRol);
+        response.status(200).json({ serverResponse: result });
+      }
+
+
+      
 }
 export default RoutesController;

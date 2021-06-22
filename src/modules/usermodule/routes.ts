@@ -15,8 +15,16 @@ class Routes {
         app.route(`${this.routeparent}/users`).get(this.routesController.getUsers);
         app.route(`${this.routeparent}/users/:id`).put(this.routesController.updateUsers);
         app.route(`${this.routeparent}/users/:id`).delete(this.routesController.removeUsers);
+        
+        //rutas para gestionar los roles del usuario
+        app.route(`${this.routeparent}/addrol/:id`).put(this.routesController.addRol);
+        app.route(`${this.routeparent}/removerol/:id`).put(this.routesController.removeUserRol);
 
-        //app.route(`${this.routeparent}/isprime`).post(this.routesController.isPrime);
+        //crud roles
+        app.route(`${this.routeparent}/roles`).post(this.routesController.createRol);
+        app.route(`${this.routeparent}/roles/:id`).delete(this.routesController.removeRol);
+        app.route(`${this.routeparent}/roles/`).get(this.routesController.getRoles);
+
     }
 }
 export default Routes;
