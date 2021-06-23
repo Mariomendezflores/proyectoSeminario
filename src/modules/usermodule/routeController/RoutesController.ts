@@ -2,12 +2,55 @@ import { Request, Response } from "express";
 import BusinessUser from "../businessController/BusinessUser";
 import BussinessRoles from "../businessController/BusinnessRoles";
 import sha1 from "sha1";
+import jsonwebtoken from "jsonwebtoken";
 import { IUser } from "../models/Users";
+
+interface Icredentials {
+  email: string;
+  password: string;
+}
 
 class RoutesController {
     constructor() {
 
     }
+    //funcion de login
+    public async login(request: Request, response: Response) {
+      var credentials: Icredentials = request.body;
+      if (credentials.email == undefined) {
+        response
+          .status(300)
+          .json({ serverResponse: "Es necesario el parámetro de email" });
+        return;
+      }
+      if (credentials.password == undefined) {
+        response
+          .status(300)
+          .json({ serverResponse: "Es necesario el parámetro de password" });
+        return;
+      }
+      credentials.password = sha1(credentials.password);
+      const user: BusinessUser = new BusinessUser();
+      let result: Array<IUser> = await user.readUsers(credentials, 0, 1);
+      if (result.length == 1) {
+        var loginUser: IUser = result[0];
+        var token: string = jsonwebtoken.sign(
+          { id: loginUser._id, email: loginUser.email },
+          "vladimir"
+        );
+        response.status(200).json({
+          serverResponse: {
+            email: loginUser.email,
+            username: loginUser.username,
+            token,
+          },
+        });
+        return;
+      }
+      response.status(200).json({ serverResponse: "Credenciales incorrectas" });
+    }
+
+
     public async createUsers(request: Request, response: Response) {
         var user: BusinessUser = new BusinessUser();
         var userData = request.body;

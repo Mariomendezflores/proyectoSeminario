@@ -1,4 +1,5 @@
 import RoutesController from "./routeController/RoutesController";
+import jsonwebtokenSecurity from "./middleware";
 import { Express } from "express";
 class Routes {
     private routesController: RoutesController;
@@ -9,6 +10,8 @@ class Routes {
         this.configureRoutes(app);
     }
     private configureRoutes(app: Express) {
+        //login
+        app.route(`${this.routeparent}/login`).post(this.routesController.login);
         //creara un usuario nuevo
         app.route(`${this.routeparent}/users`).post(this.routesController.createUsers);
         //leera la informacion de un conjunto de usuarios
