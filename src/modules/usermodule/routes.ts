@@ -19,6 +19,11 @@ class Routes {
         app.route(`${this.routeparent}/users/:id`).put(this.routesController.updateUsers);
         app.route(`${this.routeparent}/users/:id`).delete(this.routesController.removeUsers);
         
+        //rutas para subir/obtener imagenes en la creacion de usuarios
+        app.route(`${this.routeparent}/uploadportrait/:id`).post(this.routesController.uploadPortrait);
+        app.route(`${this.routeparent}/getportrait/:id`).get(this.routesController.getPortrait);
+
+
         //rutas para gestionar los roles del usuario
         app.route(`${this.routeparent}/addrol/:id`).put(this.routesController.addRol);
         app.route(`${this.routeparent}/removerol/:id`).put(this.routesController.removeUserRol);

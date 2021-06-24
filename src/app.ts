@@ -1,6 +1,7 @@
 import express, { Express } from "express";
 import * as bodyParser from "body-parser";
 import UserModules from "./modules/usermodule/init";
+import FileUpload from "express-fileupload";
 import mongoose, { Mongoose } from "mongoose";
 class App {
     public app: Express = express();
@@ -27,6 +28,7 @@ class App {
     public configuration() {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
+        this.app.use(FileUpload({ limits: { fileSize: 50 * 1024 * 1024 } }));
     }
     public initApp() {
         console.log("LOAD MODULES");
