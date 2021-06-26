@@ -10,13 +10,22 @@ class RoutesCliente {
         this.configureRoutes(app);
     }
     private configureRoutes(app: Express) {
+        //rutas para clientes
         app.route(`${this.routeparent}/clientes/:id`).post(this.routesController.createCliente);
-        //leera la informacion de un conjunto de usuarios
+        
         app.route(`${this.routeparent}/clientes`).get(this.routesController.getClientes);
         app.route(`${this.routeparent}/clientes/:id`).put(this.routesController.updateCliente);
         app.route(`${this.routeparent}/clientes/:id`).delete(this.routesController.removeClientes);
         app.route(`${this.routeparent}/clientesVendedor/:id`).get(this.routesController.getClientesByVendedor);
-        app.route(`${this.routeparent}/cliente/:id`).delete(this.routesController.getClientesById);
+        app.route(`${this.routeparent}/cliente/:id`).get(this.routesController.getClientesById);
+
+        //rutas para reuniones
+        app.route(`${this.routeparent}/reuniones/:idC/:idV`).post(this.routesController.createReunion);
+        app.route(`${this.routeparent}/reuniones`).get(this.routesController.getReuniones);
+        app.route(`${this.routeparent}/reuniones/:id`).put(this.routesController.updateReunion);
+        app.route(`${this.routeparent}/reuniones/:id`).delete(this.routesController.removeReunion);
+        app.route(`${this.routeparent}/reunionesVendedor/:idVen`).get(this.routesController.getReunionesByVendedor);
+        app.route(`${this.routeparent}/reunion/:id`).get(this.routesController.getReunionById);
 
                 
     }
