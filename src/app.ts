@@ -1,6 +1,7 @@
 import express, { Express } from "express";
 import * as bodyParser from "body-parser";
 import UserModules from "./modules/usermodule/init";
+import ClienteModules from "./modules/clientemodule/init"
 import FileUpload from "express-fileupload";
 import mongoose, { Mongoose } from "mongoose";
 class App {
@@ -33,6 +34,7 @@ class App {
     public initApp() {
         console.log("LOAD MODULES");
         const userModule = new UserModules("/api", this.app);
+        const clienteModule = new ClienteModules("/api",this.app);
     }
 }
 export default new App();
