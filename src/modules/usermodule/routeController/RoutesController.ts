@@ -148,6 +148,8 @@ class RoutesController {
           serverResponse: {
             email: loginUser.email,
             username: loginUser.username,
+            userId: loginUser.id,
+            userRol:loginUser.roles,
             token,
           },
         });
