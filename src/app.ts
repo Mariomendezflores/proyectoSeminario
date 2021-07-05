@@ -4,6 +4,7 @@ import UserModules from "./modules/usermodule/init";
 import ClienteModules from "./modules/clientemodule/init"
 import FileUpload from "express-fileupload";
 import mongoose, { Mongoose } from "mongoose";
+import ModuloPedidos from "./modules/pedidosModule/init";
 class App {
     public app: Express = express();
     public mongooseClient: Mongoose;
@@ -35,6 +36,7 @@ class App {
         console.log("LOAD MODULES");
         const userModule = new UserModules("/api", this.app);
         const clienteModule = new ClienteModules("/api",this.app);
+        const moduloPedidos = new ModuloPedidos("/api",this.app);
     }
 }
 export default new App();
