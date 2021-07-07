@@ -126,7 +126,8 @@ class RoutesController {
       if (credentials.email == undefined) {
         response
           .status(300)
-          .json({ serverResponse: "Es necesario el parámetro de email" });
+          .json({ serverResponse: "Es necesario el parámetro de email",
+                  credencia:credentials });
         return;
       }
       if (credentials.password == undefined) {
