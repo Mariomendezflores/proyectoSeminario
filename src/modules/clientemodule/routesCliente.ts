@@ -19,6 +19,14 @@ class RoutesCliente {
         app.route(`${this.routeparent}/clientesVendedor/:id`).get(this.routesController.getClientesByVendedor);
         app.route(`${this.routeparent}/cliente/:id`).get(this.routesController.getClientesById);
 
+        app.route(`${this.routeparent}/clientesPotencialesVendedor/:id`).get(this.routesController.getClientesPotencialesByVendedor);
+        app.route(`${this.routeparent}/clientesRegularesVendedor/:id`).get(this.routesController.getClientesRegularesByVendedor);
+
+            app.route(`${this.routeparent}/clientesRegulares`).get(this.routesController.getClientesRegulares);
+            app.route(`${this.routeparent}/clientesPotenciales`).get(this.routesController.getClientesPotenciales);
+            app.route(`${this.routeparent}/uploadClienteImagen/:id`).post(this.routesController.uploadImagenCliente);
+            app.route(`${this.routeparent}/clienteImagen/:id`).get(this.routesController.getImagenCliente);
+
         //rutas para reuniones
         app.route(`${this.routeparent}/reuniones/:idC/:idV`).post(this.routesController.createReunion);
         app.route(`${this.routeparent}/reuniones`).get(this.routesController.getReuniones);

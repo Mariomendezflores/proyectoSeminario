@@ -13,7 +13,7 @@ class App {
         this.initApp();
     }
     public connectDatabase() {
-        let host: string = process.env.DBHOST || "mongodb://172.18.0.2:27017";
+        let host: string ="mongodb://192.168.0.20:27017";
         let database: string = process.env.DATABASE || "seminario";
         let connectionString: string = `${host}/${database}`;
         mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
