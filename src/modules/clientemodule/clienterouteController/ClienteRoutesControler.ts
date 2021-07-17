@@ -137,7 +137,7 @@ class ClienteRoutesController {
           clienteToUpdate.pathavatar = totalpath;
           var clienteResult: ICliente = await clienteToUpdate.save();
         }
-        response.status(300).json({ serverResponse: "imagen de cliente añadida"});
+        response.status(200).json({ serverResponse: "imagen de cliente añadida"});
         /*file.mv(totalpath, async (err: any, success: any) => {
           if (err) {
             response
